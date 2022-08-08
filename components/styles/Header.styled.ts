@@ -20,10 +20,12 @@ export const Container = styled.div`
 `
 export const HeaderText = styled.div`
   margin-right: 0.5em;
+  font-family: Andale Mono;
 `
 export const LogoutButton = styled.button`
-  background-color: #008cba;
+  background-color: #342f4e;
   border: none;
+  font-family: Andale Mono;
   color: white;
   padding: 1em;
   text-align: center;

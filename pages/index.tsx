@@ -6,10 +6,18 @@ import { useCollection } from 'react-firebase-hooks/firestore'
 import Auth from '../components/Auth'
 import Header from '../components/Header'
 import { BallTriangle } from 'react-loader-spinner'
+import { Container } from './styles/index.styled'
+import { FloatingButton } from '../components/styles/AddItem.styled'
+import { PopUpDiv } from '../components/styles/Popup.styled'
+import Popup from '../components/Popup'
+import { useState } from 'react'
 
 export default function Home() {
   const [user, loading, error] = useAuthState(firebase.auth())
-
+  const [showPopup, setShowPopup] = useState(false)
+  const handleAddItem = () => {
+    setShowPopup(true)
+  }
   return (
     <>
       {user && !loading && <Header />}
@@ -30,7 +38,12 @@ export default function Home() {
           <BallTriangle color="#00BFFF" height={80} width={80} />
         )}
         {!user && !loading && <Auth />}
-        {user && !loading && <div>sdffs</div>}
+        {user && !loading && (
+          <div>
+            <Popup props={showPopup} />
+            <FloatingButton onClick={handleAddItem}>Add Item</FloatingButton>
+          </div>
+        )}
       </div>
     </>
   )
