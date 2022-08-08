@@ -11,39 +11,29 @@ import {
   PopupTextArea,
 } from './styles/Popup.styled'
 import { useState, useEffect } from 'react'
+import { throws } from 'assert'
 
-function Popup({ props }) {
-  console.log('strategy', props)
+function Popup(props) {
   const [form, setForm] = useState({
     title: '',
     desc: '',
-    ingredients: [],
-    steps: [],
   })
 
-  const [recipes, setRecipes] = useState([])
-  const [popupActive, setPopupActive] = useState(props)
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    if (!form.title || !form.desc || !form.ingredients || !form.steps) {
+    if (!form.title || !form.desc) {
       alert('Please fill out all fields')
       return
     }
-
-    // addDoc(recipesCollectionRef, form)
-
     setForm({
       title: '',
       desc: '',
-      ingredients: [],
-      steps: [],
     })
-
-    setPopupActive(false)
   }
+
   return (
-    props && (
+    props.props && (
       <PopUpDiv>
         <PopupInner>
           <PopupH2>Add a new code snippet</PopupH2>
@@ -67,7 +57,7 @@ function Popup({ props }) {
 
             <PopupButtons>
               <PopupButton type="submit">Submit</PopupButton>
-              <PopupButton type="button" onClick={() => setPopupActive(false)}>
+              <PopupButton type="button" onClick={() => props.onChange(false)}>
                 Close
               </PopupButton>
             </PopupButtons>

@@ -10,14 +10,21 @@ import { Container } from './styles/index.styled'
 import { FloatingButton } from '../components/styles/AddItem.styled'
 import { PopUpDiv } from '../components/styles/Popup.styled'
 import Popup from '../components/Popup'
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 
 export default function Home() {
   const [user, loading, error] = useAuthState(firebase.auth())
   const [showPopup, setShowPopup] = useState(false)
   const handleAddItem = () => {
-    setShowPopup(true)
+    if (showPopup) {
+      setShowPopup(false)
+    } else {
+      setShowPopup(true)
+    }
   }
+  const test = useCallback((state) => {
+    setShowPopup(false)
+  }, [])
   return (
     <>
       {user && !loading && <Header />}
@@ -40,7 +47,7 @@ export default function Home() {
         {!user && !loading && <Auth />}
         {user && !loading && (
           <div>
-            <Popup props={showPopup} />
+            <Popup props={showPopup} onChange={test} />
             <FloatingButton onClick={handleAddItem}>Add Item</FloatingButton>
           </div>
         )}
