@@ -11,29 +11,35 @@ import {
   PopupTextArea,
 } from './styles/Popup.styled'
 import { useState, useEffect } from 'react'
-import { throws } from 'assert'
 
 function Popup(props) {
   const [form, setForm] = useState({
     title: '',
-    desc: '',
+    code: '',
   })
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
-    if (!form.title || !form.desc) {
+    if (!form.title || !form.code) {
       alert('Please fill out all fields')
       return
     }
     setForm({
       title: '',
-      desc: '',
+      code: '',
     })
+
+    await props.db
+      .collection('snippets')
+      .doc()
+      .set({ title: form.title, code: form.code, user: props.user.uid })
+
+    props.onChange(false)
   }
 
   return (
-    props.props && (
+    props.showPopup && (
       <PopUpDiv>
         <PopupInner>
           <PopupH2>Add a new code snippet</PopupH2>
@@ -50,8 +56,8 @@ function Popup(props) {
             <PopupFormGroup>
               <PopupLabel>Snippet</PopupLabel>
               <PopupTextArea
-                value={form.desc}
-                onChange={(e) => setForm({ ...form, desc: e.target.value })}
+                value={form.code}
+                onChange={(e) => setForm({ ...form, code: e.target.value })}
               />
             </PopupFormGroup>
 
