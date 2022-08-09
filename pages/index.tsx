@@ -52,6 +52,7 @@ export default function Home() {
         {/* {!user && loading && (
           <BallTriangle color="#00BFFF" height={80} width={80} />
         )} */}
+
         {!user && !loading && <Auth />}
         {user && !loading && (
           <div>
@@ -64,12 +65,12 @@ export default function Home() {
             >
               {snippets?.docs?.map((doc) => (
                 <>
-                  <SnippetList id={doc.id} key={doc.id} data={doc.data()} />
-                </>
-              ))}
-              {snippets?.docs?.map((doc) => (
-                <>
-                  <SnippetList id={doc.id} key={doc.id} data={doc.data()} />
+                  <SnippetList
+                    id={doc.id}
+                    key={doc.id}
+                    db={db}
+                    data={doc.data()}
+                  />
                 </>
               ))}
             </div>

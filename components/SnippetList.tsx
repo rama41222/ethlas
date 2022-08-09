@@ -1,33 +1,22 @@
-import { DocumentData } from '@google-cloud/firestore'
 import React, { ReactElement } from 'react'
 import { useDocument } from 'react-firebase-hooks/firestore'
 import firebase from '../firebase/client-app'
+import { SnippetCloseBtn, SnippetContainer } from './styles/SnippetList.styled'
 
 interface Props {
   id: string
   data: any
+  db: any
 }
 
-export default function SnippetList({ id, data }: Props): ReactElement {
+export default function SnippetList({ id, data, db }: Props): ReactElement {
+  const handleClose = async (e) => {
+    await db.collection('snippets').doc(id).delete()
+  }
   return (
-    <div
-      style={{
-        maxWidth: '320px',
-        display: 'block',
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: '#342f4e',
-        padding: '2em',
-        paddingTop: '1em',
-        borderRadius: '2em',
-        overflowWrap: `break-word`,
-        marginBottom: '0.5em',
-        margin: '0.5em',
-        textOverflow: 'wrap',
-      }}
-    >
+    <SnippetContainer id={id}>
       <div style={{ float: 'right' }}>
-        <button>X</button>
+        <SnippetCloseBtn onClick={handleClose}>X</SnippetCloseBtn>
       </div>
       <br />
       <div>
@@ -37,6 +26,6 @@ export default function SnippetList({ id, data }: Props): ReactElement {
       <div>
         <code style={{ marginTop: 0 }}>{data?.code}</code>
       </div>
-    </div>
+    </SnippetContainer>
   )
 }
