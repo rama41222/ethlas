@@ -1,6 +1,4 @@
 import React, { ReactElement } from 'react'
-import { useDocument } from 'react-firebase-hooks/firestore'
-import firebase from '../firebase/client-app'
 import { SnippetCloseBtn, SnippetContainer } from './styles/SnippetList.styled'
 
 interface Props {
@@ -9,6 +7,12 @@ interface Props {
   db: any
 }
 
+/**
+ *
+ * @description Displays a Snippet
+ * @param {}
+ * @returns CodeSnippet
+ */
 export default function SnippetList({ id, data, db }: Props): ReactElement {
   const handleClose = async (e) => {
     await db.collection('snippets').doc(id).delete()

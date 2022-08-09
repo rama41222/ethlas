@@ -12,6 +12,9 @@ const clientCredentials = {
   measurementId: process.env.PUBLIC_FIREBASE_MEASUREMENT_ID,
 }
 
+/**
+ * Setup firebase sdk instance
+ */
 if (!firebase.apps.length) {
   firebase.initializeApp(clientCredentials)
 }

@@ -3,8 +3,16 @@ import { Container, HeaderText, LogoutButton } from './styles/Header.styled'
 import firebase from '../firebase/client-app'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
+/**
+ *
+ * @returns Navigation Component
+ */
 function Header() {
   const [user, loading, error] = useAuthState(firebase.auth())
+
+  /**
+   *  @description logout button on the header
+   */
   const logout = async () => {
     try {
       await firebase.auth().signOut()
@@ -17,7 +25,7 @@ function Header() {
   return (
     <>
       <Container>
-        <HeaderText>Snippet</HeaderText>
+        <HeaderText>GistME</HeaderText>
         {user && <LogoutButton onClick={logout}>Logout</LogoutButton>}
       </Container>
     </>

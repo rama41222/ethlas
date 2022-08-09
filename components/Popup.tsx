@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   PopupButton,
   PopupButtons,
@@ -10,31 +10,40 @@ import {
   PopupLabel,
   PopupTextArea,
 } from './styles/Popup.styled'
-import { useState, useEffect } from 'react'
 
+/**
+ * @description Modal component to add a gist
+ * @param {}
+ * @returns
+ */
 function Popup(props) {
+  // Form status
   const [form, setForm] = useState({
     title: '',
     code: '',
   })
 
+  // Handles form submit event
   const handleSubmit = async (e) => {
     e.preventDefault()
 
+    // display a temporary alert if fields are empty
     if (!form.title || !form.code) {
       alert('Please fill out all fields')
       return
     }
-    setForm({
-      title: '',
-      code: '',
-    })
-
+    // update db
     await props.db
       .collection('snippets')
       .doc()
       .set({ title: form.title, code: form.code, user: props.user.uid })
 
+    // clear form state
+    setForm({
+      title: '',
+      code: '',
+    })
+    // close the popup
     props.onChange(false)
   }
 

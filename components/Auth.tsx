@@ -10,11 +10,16 @@ const uiConfig = {
   // Redirect to / after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
   signInFlow: 'popup',
   signInSuccessUrl: '/',
-  // We will display GitHub as auth providers.
+  // Github Auth Provider
   signInOptions: [firebase.auth.GithubAuthProvider.PROVIDER_ID],
 }
 
+/**
+ *
+ * @returns Signin Component
+ */
 function SignInScreen() {
+  // set user state during signin
   const [user, loading] = useAuthState(firebase.auth())
 
   return (

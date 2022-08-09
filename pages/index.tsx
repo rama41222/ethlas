@@ -1,27 +1,29 @@
-import Head from 'next/head'
-import Image from 'next/image'
 import firebase from '../firebase/client-app'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useCollection } from 'react-firebase-hooks/firestore'
 import Auth from '../components/Auth'
 import Header from '../components/Header'
-import { BallTriangle } from 'react-loader-spinner'
-import { Container } from './styles/index.styled'
 import { FloatingButton } from '../components/styles/AddItem.styled'
-import { PopUpDiv } from '../components/styles/Popup.styled'
 import Popup from '../components/Popup'
 import { useState, useCallback } from 'react'
 import SnippetList from '../components/SnippetList'
 
 export default function Home() {
+  // initialize db
   const db = firebase.firestore()
+  // fetch logged user
   const [user, loading, error] = useAuthState(firebase.auth())
+  // popup state
   const [showPopup, setShowPopup] = useState(false)
+  // snippet state
   const [snippets, snippetLoading, snippetError] = useCollection(
     firebase.firestore().collection('snippets'),
     {},
   )
 
+  /**
+   * @description Adds a snippet to the list of snippet items
+   */
   const handleAddItem = () => {
     if (showPopup) {
       setShowPopup(false)
@@ -29,9 +31,15 @@ export default function Home() {
       setShowPopup(true)
     }
   }
-  const test = useCallback((state) => {
+
+  /**
+   * @description Handle popup close event
+   */
+  const closeCallback = useCallback((state) => {
+    // change popup show state
     setShowPopup(false)
   }, [])
+
   return (
     <>
       {user && !loading && <Header />}
@@ -49,10 +57,6 @@ export default function Home() {
           padding: `10em`,
         }}
       >
-        {/* {!user && loading && (
-          <BallTriangle color="#00BFFF" height={80} width={80} />
-        )} */}
-
         {!user && !loading && <Auth />}
         {user && !loading && (
           <div>
@@ -74,8 +78,13 @@ export default function Home() {
                 </>
               ))}
             </div>
-            <Popup showPopup={showPopup} user={user} db={db} onChange={test} />
-            <FloatingButton onClick={handleAddItem}>Add Item</FloatingButton>
+            <Popup
+              showPopup={showPopup}
+              user={user}
+              db={db}
+              onChange={closeCallback}
+            />
+            <FloatingButton onClick={handleAddItem}>[+]</FloatingButton>
           </div>
         )}
       </div>
