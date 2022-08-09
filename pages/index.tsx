@@ -1,6 +1,6 @@
 import firebase from '../firebase/client-app'
 import { FloatingButton } from '../components/styles/AddItem.styled'
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useCollection } from 'react-firebase-hooks/firestore'
 import Auth from '../components/Auth'
@@ -15,11 +15,25 @@ export default function Home() {
   const [user, loading, error] = useAuthState(firebase.auth())
   // popup state
   const [showPopup, setShowPopup] = useState(false)
+  const [snippets, setSnippets] = useState([])
   // snippet state
-  const [snippets, snippetLoading, snippetError] = useCollection(
-    firebase.firestore().collection('snippets'),
-    {},
-  )
+  // const [dbSnippets] =
+  useEffect(() => {
+    // fetch snippet list
+    const fetchData = async () => {
+      const data = await db
+        .collection('snippets')
+        .where('user', '==', user?.uid)
+        .get()
+      return data
+    }
+
+    fetchData()
+      .then((data) => {
+        setSnippets(data as any)
+      })
+      .catch(console.error)
+  }, [user])
 
   /**
    * @description Adds a snippet to the list of snippet items
