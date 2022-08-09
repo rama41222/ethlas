@@ -14,7 +14,9 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Discussion
+### About
+
+This is a funtime project to create a simple dashboard to post gists (code snippets) that we usually store in slack or notes app.
 
 #### Points to Note
 
