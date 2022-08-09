@@ -7,7 +7,6 @@ import Auth from '../components/Auth'
 import Popup from '../components/Popup'
 import Header from '../components/Header'
 import SnippetList from '../components/SnippetList'
-import { DocumentData } from '@google-cloud/firestore'
 
 export default function Home() {
   // initialize db
@@ -16,25 +15,15 @@ export default function Home() {
   const [user, loading, error] = useAuthState(firebase.auth())
   // popup state
   const [showPopup, setShowPopup] = useState(false)
-  const [snippets, setSnippets] = useState([] as DocumentData)
+  // const [snippets, setSnippets] = useState([] as DocumentData)
   // snippet state
-  // const [dbSnippets] =
-  useEffect(() => {
-    // fetch snippet list
-    const fetchData = async (): Promise<DocumentData> => {
-      const data = await db
-        .collection('snippets')
-        .where('user', '==', user?.uid)
-        .get()
-      return data
-    }
-
-    fetchData()
-      .then((data: DocumentData) => {
-        setSnippets(data)
-      })
-      .catch(console.error)
-  }, [user])
+  const [snippets, snippetsLoading, snippetsError] = useCollection(
+    firebase
+      .firestore()
+      .collection('snippets')
+      .where('user', '==', user?.uid ? user?.uid : ''),
+    {},
+  )
 
   /**
    * @description Adds a snippet to the list of snippet items
@@ -86,8 +75,8 @@ export default function Home() {
                 <>
                   <SnippetList
                     id={doc.id}
-                    key={doc.id}
                     db={db}
+                    key={doc.id ? doc.id : new Date().getMilliseconds()}
                     data={doc.data()}
                   />
                 </>
@@ -97,6 +86,7 @@ export default function Home() {
               showPopup={showPopup}
               user={user}
               db={db}
+              key={new Date().getMilliseconds()}
               onChange={closeCallback}
             />
             <FloatingButton onClick={handleAddItem}>[+]</FloatingButton>
