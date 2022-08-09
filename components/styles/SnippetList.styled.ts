@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const SnippetContainer = styled.div`
   max-width: 320px;
-  min-width: 320px;
+  min-width: 300px;
   display: block;
   flex-direction: row;
   align-items: center;
