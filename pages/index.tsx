@@ -7,6 +7,7 @@ import Auth from '../components/Auth'
 import Popup from '../components/Popup'
 import Header from '../components/Header'
 import SnippetList from '../components/SnippetList'
+import { DocumentData } from '@google-cloud/firestore'
 
 export default function Home() {
   // initialize db
@@ -15,12 +16,12 @@ export default function Home() {
   const [user, loading, error] = useAuthState(firebase.auth())
   // popup state
   const [showPopup, setShowPopup] = useState(false)
-  const [snippets, setSnippets] = useState([])
+  const [snippets, setSnippets] = useState([] as DocumentData)
   // snippet state
   // const [dbSnippets] =
   useEffect(() => {
     // fetch snippet list
-    const fetchData = async () => {
+    const fetchData = async (): Promise<DocumentData> => {
       const data = await db
         .collection('snippets')
         .where('user', '==', user?.uid)
@@ -29,8 +30,8 @@ export default function Home() {
     }
 
     fetchData()
-      .then((data) => {
-        setSnippets(data as any)
+      .then((data: DocumentData) => {
+        setSnippets(data)
       })
       .catch(console.error)
   }, [user])
