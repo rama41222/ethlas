@@ -72,14 +72,12 @@ export default function Home() {
               }}
             >
               {snippets?.docs?.map((doc) => (
-                <>
-                  <SnippetList
-                    id={doc.id}
-                    db={db}
-                    key={doc.id ? doc.id : new Date().getMilliseconds()}
-                    data={doc.data()}
-                  />
-                </>
+                <SnippetList
+                  id={doc.id}
+                  db={db}
+                  key={doc.id ? doc.id : new Date().getMilliseconds()}
+                  data={doc.data()}
+                />
               ))}
             </div>
             <Popup
