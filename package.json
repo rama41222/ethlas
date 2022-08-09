@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.2",
+    "@fortawesome/free-solid-svg-icons": "^6.1.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "firebase": "^8.6.2",
     "firebase-functions": "^3.22.0",
     "next": "10.2.3",
@@ -23,6 +26,7 @@
     "@google-cloud/firestore": "^6.0.0",
     "@types/node": "^15.6.1",
     "@types/react": "17.0.8",
+    "@types/react-fontawesome": "^1.6.5",
     "typescript": "^4.3.2"
   }
 }

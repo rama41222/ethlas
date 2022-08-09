@@ -19,14 +19,23 @@ export const SnippetContainer = styled.div`
 export const SnippetCloseBtn = styled.button`
   background-color: #3c6382;
   border: none;
+  width: 40px;
+  height: 40px;
   font-family: Andale Mono;
+  font-weight: bold;
   color: white;
-  padding: 1em;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 0.8em;
+  font-size: 1em;
   font-weight: bold;
   cursor: pointer;
-  border-radius: 0.8em;
+  border-radius: 100%;
+`
+export const CodeSnippet = styled.pre`
+  color: white;
+  line-height: 1.1em;
+  padding: 1em;
+  overflow-wrap: break-word;
+  overflow-x: scroll;
 `

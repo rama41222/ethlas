@@ -13,9 +13,11 @@ export const FloatingButton = styled.button`
   font-weight: bold;
   margin: 2px 2px;
   cursor: pointer;
-  border-radius: 15px;
+  border-radius: 100%;
   position: fixed;
   bottom: 0.3em;
   right: 0.3em;
   z-index: 2;
+  height: 70px;
+  width: 70px;
 `

@@ -1,5 +1,11 @@
 import React, { ReactElement } from 'react'
-import { SnippetCloseBtn, SnippetContainer } from './styles/SnippetList.styled'
+import {
+  CodeSnippet,
+  SnippetCloseBtn,
+  SnippetContainer,
+} from './styles/SnippetList.styled'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
 interface Props {
   id: string
@@ -19,16 +25,30 @@ export default function SnippetList({ id, data, db }: Props): ReactElement {
   }
   return (
     <SnippetContainer id={id}>
-      <div style={{ float: 'right' }}>
-        <SnippetCloseBtn onClick={handleClose}>X</SnippetCloseBtn>
+      <div
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          flexDirection: 'row',
+          alignItems: 'center',
+          alignContent: 'baseline',
+          justifyContent: 'space-between',
+        }}
+      >
+        <div>
+          <h1>{data?.title}</h1>
+        </div>
+        <div>
+          <SnippetCloseBtn onClick={handleClose}>
+            <FontAwesomeIcon icon={faXmark} />
+          </SnippetCloseBtn>
+        </div>
       </div>
-      <br />
       <div>
-        <h2 style={{ marginBottom: 0 }}>{data?.title}</h2>
-      </div>
-      <hr />
-      <div>
-        <code style={{ marginTop: 0 }}>{data?.code}</code>
+        <hr />
+        <div>
+          <CodeSnippet style={{ marginTop: 0 }}>{data?.code}</CodeSnippet>
+        </div>
       </div>
     </SnippetContainer>
   )

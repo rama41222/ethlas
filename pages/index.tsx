@@ -7,6 +7,8 @@ import Auth from '../components/Auth'
 import Popup from '../components/Popup'
 import Header from '../components/Header'
 import SnippetList from '../components/SnippetList'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFolderPlus } from '@fortawesome/free-solid-svg-icons'
 
 export default function Home() {
   // initialize db
@@ -87,7 +89,9 @@ export default function Home() {
               key={new Date().getMilliseconds()}
               onChange={closeCallback}
             />
-            <FloatingButton onClick={handleAddItem}>[+]</FloatingButton>
+            <FloatingButton onClick={handleAddItem}>
+              <FontAwesomeIcon icon={faFolderPlus} />
+            </FloatingButton>
           </div>
         )}
       </div>
