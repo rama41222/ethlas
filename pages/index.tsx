@@ -1,11 +1,11 @@
 import firebase from '../firebase/client-app'
+import { FloatingButton } from '../components/styles/AddItem.styled'
+import { useState, useCallback } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useCollection } from 'react-firebase-hooks/firestore'
 import Auth from '../components/Auth'
-import Header from '../components/Header'
-import { FloatingButton } from '../components/styles/AddItem.styled'
 import Popup from '../components/Popup'
-import { useState, useCallback } from 'react'
+import Header from '../components/Header'
 import SnippetList from '../components/SnippetList'
 
 export default function Home() {
